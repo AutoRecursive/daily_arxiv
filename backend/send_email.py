@@ -7,9 +7,9 @@ from smtplib import SMTP
 def send_email(title, content):
 
     #发送者邮箱
-    sender = 'llj96@sina.com'#'dailyarxiv@163.com'
+    sender = ''#'dailyarxiv@163.com'
     #发送者的登陆用户名和密码
-    user = 'llj96@sina.com'#'dailyarxiv@163.com'
+    user = ''#'dailyarxiv@163.com'
     password = 'aaaaaaaa'#dailyarxiv123
     #发送者邮箱的SMTP服务器地址
     smtpserver = 'smtp.163.com'
