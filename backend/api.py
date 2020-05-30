@@ -7,11 +7,17 @@ api = flask_restful.Api(app)
 
 
 class DailyArxiv(flask_restful.Resource):
+    def __init__(self):
+        super(DailyArxiv, self).__init__()
+        self.papers = get_arxiv_papers()
+
     def get(self):
-        return get_arxiv_papers()
+        self.papers = get_arxiv_papers()
+        # print(self.papers['MOT'])
+        return self.papers['MOT']
 
 
-api.add_resource(DailyArxiv, '/')
+api.add_resource(DailyArxiv, '/papers')
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1')
+    app.run(host='0.0.0.0')
