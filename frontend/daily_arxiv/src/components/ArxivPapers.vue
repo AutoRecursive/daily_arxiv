@@ -5,8 +5,8 @@
     </div>
     <ol>
         <li v-for="p in this.papers" :key="p.id">
-            <h2 class="paper-title">{{ p.title.toString().replace("\nTitle :", "") }}</h2>
-            <h2 class="paper-id">{{ p.id }}</h2>
+            <h3 class="paper-title">{{ p.title.toString().replace("\nTitle :", "") }}</h3>
+            <a v-bind:href="p.link" class="paper-id">{{ p.id }}</a>
             <p> {{p.subjects.toString().replace("\nSubjects: ", "")}}</p>
 
         </li>
@@ -50,11 +50,11 @@ div.title-container{
   border-bottom: 2px solid #ccc;
 }
 
-h2.paper-title{
+h3.paper-title{
   color: #212121;
 }
 
-h2.paper-id{
+h3.paper-id{
   color: #767676;
 }
 

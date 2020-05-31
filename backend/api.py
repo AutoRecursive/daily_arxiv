@@ -14,7 +14,7 @@ class DailyArxiv(flask_restful.Resource):
     def get(self):
         self.papers = get_arxiv_papers()
         # print(self.papers['MOT'])
-        return self.papers['MOT']
+        return self.papers['meta']
 
 
 api.add_resource(DailyArxiv, '/papers')

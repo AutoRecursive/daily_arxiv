@@ -25,7 +25,7 @@ def process_raw():
     soup = BeautifulSoup(html, features='html.parser')
     content = soup.dl
     # date = soup.find('h3')
-    list_ids = content.find_all('a', title='Abstract')
+    list_ids = content.find_all('a', title='Abstract', href=True)
     list_title = content.find_all('div', class_='list-title mathjax')
     list_authors = content.find_all('div', class_='list-authors')
     list_subjects = content.find_all('div', class_='list-subjects')
@@ -49,9 +49,12 @@ def get_collections(key_words, Key_words, paper, collections='default',
                                                            case=False)]
         selected_papers = pd.concat([selected_papers, selected_paper], axis=0)
     for Key_word in Key_words:
-        selected_paper = paper[paper['title'].str.contains(Key_word,
+        selected_papers_case = paper[paper['title'].str.contains(Key_word,
                                case=True)]
-        selected_papers = pd.concat([selected_papers, selected_paper], axis=0)
+    for key_word in key_words:
+        selected_paper_subjects = paper[paper['subjects'].str.contains(key_word,
+                                                           case=False)]
+        selected_papers = pd.concat([selected_papers, selected_papers_case, selected_paper_subjects], axis=0)
     if save_collections:
         path = 'data/arxiv_{}/'.format(collections)
         pathlib.Path(path).mkdir(parents=True, exist_ok=True)
@@ -89,11 +92,11 @@ def get_arxiv_papers(save_papers=True, save_sbj=True, save_collections=True):
     list_ids, list_title, list_authors, list_subjects,\
         list_subject_split = process_raw()
     items = []
-    for i, paper in enumerate(zip(list_ids, list_title, list_authors,
+    for _, paper in enumerate(zip(list_ids, list_title, list_authors,
                                   list_subjects, list_subject_split)):
-        items.append([paper[0].text, paper[1].text, paper[2].text,
-                      paper[3].text, paper[4]])
-    name = ['id', 'title', 'authors', 'subjects', 'subject_split']
+        items.append([paper[0].text, paper[1].text.replace('\nTitle: ', ''), paper[2].text.replace('\nAuthors: ', ''),
+                      paper[3].text.replace('\nSubjects: ', ''), paper[4], "https://arxiv.org" + paper[0]['href']])
+    name = ['id', 'title', 'authors', 'subjects', 'subject_split', 'link']
     paper = pd.DataFrame(columns=name, data=items)
     if save_papers:
         path = './data/arxiv_daily/'
@@ -103,19 +106,23 @@ def get_arxiv_papers(save_papers=True, save_sbj=True, save_collections=True):
     if save_sbj:
         get_sbj(list_subject_split, items)
 
-    key_words = ['track', 'occlu', 'multiple object', 'multiple target',
-                 'multi-object', 'multi-target', 'people', 'person',
-                 'pedestrian', 'human', 'siam']
-    Key_words = ['MOT', 'SOT']
-    key_words2 = ['quantization', 'compress', 'prun']
-    Key_words2 = ['MOT']
+    key_words = ['optimal control', 'non-linear control', 'nonlinear control', 'robotics', 'Systems and Control', 'Optimization and Control']
+    Key_words = ['Koopman', 'Systems and Control']
 
-    return {
-        'MOT': get_collections(key_words, Key_words, paper, 'Det',
-                               save_collections=save_collections),
-        'SOT': get_collections(key_words2, Key_words2, paper, 'MOT',
-                               save_collections=save_collections)}
+    # key_words = ['track', 'occlu', 'multiple object', 'multiple target',
+    #              'multi-object', 'multi-target', 'people', 'person',
+    #              'pedestrian', 'human', 'siam']
+    # Key_words = ['MOT', 'SOT']
+    # key_words2 = ['quantization', 'compress', 'prun']
+    # Key_words2 = ['MOT']
 
+    # return {
+    #     'MOT': get_collections(key_words, Key_words, paper, 'Det',
+    #                            save_collections=save_collections),
+    #     'SOT': get_collections(key_words2, Key_words2, paper, 'MOT',
+    #                            save_collections=save_collections)}
+    return {'meta':get_collections(key_words, Key_words, paper, 'Det',
+            save_collections=save_collections),}
 
 def main():
     get_arxiv_papers()
