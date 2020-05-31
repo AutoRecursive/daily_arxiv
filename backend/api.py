@@ -9,11 +9,11 @@ api = flask_restful.Api(app)
 class DailyArxiv(flask_restful.Resource):
     def __init__(self):
         super(DailyArxiv, self).__init__()
-        self.papers = get_arxiv_papers()
+        self.key_words = ['optimal control', 'non-linear control', 'nonlinear control', 'robotics', 'Systems and Control', 'Optimization and Control']
+        self.Key_words = ['Koopman', 'Systems and Control']
 
     def get(self):
-        self.papers = get_arxiv_papers()
-        # print(self.papers['MOT'])
+        self.papers = get_arxiv_papers(self.key_words, self.Key_words)
         return self.papers['meta']
 
 

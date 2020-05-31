@@ -21,6 +21,11 @@ export default {
 body{
   margin:0;
 }
+ol{
+  padding-inline-start: 0;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -88,7 +88,7 @@ def get_sbj(list_subject_split, items):
     # subject_file.to_html('subject_file.html')
 
 
-def get_arxiv_papers(save_papers=True, save_sbj=True, save_collections=True):
+def get_arxiv_papers(key_words, Key_words, save_papers=False, save_sbj=False, save_collections=False):
     list_ids, list_title, list_authors, list_subjects,\
         list_subject_split = process_raw()
     items = []
@@ -106,8 +106,7 @@ def get_arxiv_papers(save_papers=True, save_sbj=True, save_collections=True):
     if save_sbj:
         get_sbj(list_subject_split, items)
 
-    key_words = ['optimal control', 'non-linear control', 'nonlinear control', 'robotics', 'Systems and Control', 'Optimization and Control']
-    Key_words = ['Koopman', 'Systems and Control']
+   
 
     # key_words = ['track', 'occlu', 'multiple object', 'multiple target',
     #              'multi-object', 'multi-target', 'people', 'person',
@@ -125,7 +124,9 @@ def get_arxiv_papers(save_papers=True, save_sbj=True, save_collections=True):
             save_collections=save_collections),}
 
 def main():
-    get_arxiv_papers()
+     key_words = ['optimal control', 'non-linear control', 'nonlinear control', 'robotics', 'Systems and Control', 'Optimization and Control']
+     Key_words = ['Koopman', 'Systems and Control']
+     get_arxiv_papers(key_words, Key_words)
 
 
 if __name__ == '__main__':

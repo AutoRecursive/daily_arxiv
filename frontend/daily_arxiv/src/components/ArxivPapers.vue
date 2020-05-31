@@ -3,26 +3,31 @@
     <div class="title-container">
       <h1 class="title">Daily Arxiv Papers</h1>
     </div>
-    <ol>
-        <li v-for="p in this.papers" :key="p.id">
-            <h3 class="paper-title">{{ p.title.toString().replace("\nTitle :", "") }}</h3>
-            <a v-bind:href="p.link" class="paper-id">{{ p.id }}</a>
-            <p> {{p.subjects.toString().replace("\nSubjects: ", "")}}</p>
-
-        </li>
-    </ol>
+    <div class = row>
+      <ol>
+          <li v-for="p in this.papers" :key="p.id">
+            <Card :title="p.title" :id="p.id" :subjects="p.subject_split" :link="p.link" />
+            
+          </li>
+      </ol>
+    </div>
   </div>
 </template>
 
 <script>
+import Card from './Card.vue'
+
 export default {
   name: 'ArxivPapers',
   props: {
     msg: String
   },
+  components: {
+    Card
+  },
   data () {
       return {
-      papers: "Reading..."
+        papers: "Reading..."
       }
   },
   mounted () {
@@ -39,23 +44,17 @@ export default {
 <style scoped>
 h1.title{
   color: #ffffff;
-  font-family: 'Lucida Grande', helvetica, arial, verdana, sans-serif;
+  font-family: 'Lucida Grande';
   font-size: 2.5em;
   font-weight: normal;
+  margin: auto;
+
 }
 
 div.title-container{
   background-color: #b31c1b;
   padding: 10px 0 10px 0;
   border-bottom: 2px solid #ccc;
-}
-
-h3.paper-title{
-  color: #212121;
-}
-
-h3.paper-id{
-  color: #767676;
 }
 
 h3 {
@@ -70,6 +69,13 @@ li {
   margin: 0 10px;
 }
 a {
-  color: #42b983;
+  color: #b31c1b;
+}
+
+div.row{
+	display:flex;
+  align-items: center;
+	justify-content:center;
+	margin-top:50px;
 }
 </style>
