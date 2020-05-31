@@ -1,7 +1,12 @@
 <template>
   <div class="arxiv-papers">
     <div class="title-container">
-      <h1 class="title">Daily Arxiv Papers</h1>
+      <h1 class="title">Daily Arxiv</h1>
+
+      <!--
+      <h1 class="title">Paper Alert</h1>
+      <p class="title">Eight papers a day, keeps your Doctor (of Philosophy) away</p>
+      -->
     </div>
     <div class = row>
       <ol>
@@ -46,6 +51,14 @@ h1.title{
   color: #ffffff;
   font-family: 'Lucida Grande';
   font-size: 2.5em;
+  font-weight: normal;
+  margin: auto;
+}
+
+p.title{
+  color: #ffffff;
+  font-family: 'Lucida Grande';
+  font-size: 1.5em;
   font-weight: normal;
   margin: auto;
 

@@ -54,8 +54,8 @@ a {
 div.card{
   width:400px;
 	height:240px;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 30px;
+  margin-right: 30px;
   margin-top: 20px;
   margin-bottom: 20px
   
