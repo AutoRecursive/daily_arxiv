@@ -52,14 +52,12 @@ a {
 }
 
 div.card{
-  width:400px;
+  width:300px;
 	height:240px;
   margin-left: 30px;
   margin-right: 30px;
   margin-top: 20px;
   margin-bottom: 20px
-  
- 
 }
 
 div.card-header{
